@@ -15,6 +15,7 @@ const pill = {
   display: 'flex', alignItems: 'center', gap: 10,
   background: 'var(--bg2)', border: '1px solid var(--border)',
   borderRadius: 12, padding: '10px 16px',
+  color: 'var(--text)', textAlign: 'right',
 };
 
 const quickLinks = [
@@ -59,8 +60,13 @@ export default function Home({ onNavigate }) {
 
       {/* ── Streak shelf ── */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap' }}>
-        {/* Streak */}
-        <div style={pill}>
+        {/* Streak → navigates to Learn */}
+        <button
+          onClick={() => onNavigate('learn')}
+          style={{ ...pill, cursor: 'pointer', background: 'var(--bg2)', border: '1px solid var(--border)', transition: 'border-color 0.15s, transform 0.15s' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--fire)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = ''; }}
+        >
           <span style={{ color: 'var(--fire)' }}><FireIcon size={22} /></span>
           <div>
             <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--fire)', lineHeight: 1 }}>
@@ -70,17 +76,27 @@ export default function Home({ onNavigate }) {
               {streak.count > 0 ? (isHe ? 'רצף ימים' : 'Day streak') : (isHe ? 'למד היום' : 'Start today')}
             </div>
           </div>
-        </div>
-        {/* Total XP */}
-        <div style={pill}>
+        </button>
+        {/* Total XP → navigates to Progress */}
+        <button
+          onClick={() => onNavigate('progress')}
+          style={{ ...pill, cursor: 'pointer', background: 'var(--bg2)', border: '1px solid var(--border)', transition: 'border-color 0.15s, transform 0.15s' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--gold)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = ''; }}
+        >
           <span style={{ color: 'var(--gold)' }}><BoltIcon size={22} /></span>
           <div>
             <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold)', lineHeight: 1 }}>{xp}</div>
             <div style={{ fontSize: '0.68rem', color: 'var(--text3)' }}>Total XP</div>
           </div>
-        </div>
-        {/* Level mini-bar */}
-        <div style={{ flex: 1, minWidth: 160, ...pill, gap: 8 }}>
+        </button>
+        {/* Level bar → navigates to Progress */}
+        <button
+          onClick={() => onNavigate('progress')}
+          style={{ flex: 1, minWidth: 160, ...pill, gap: 8, cursor: 'pointer', background: 'var(--bg2)', border: '1px solid var(--border)', transition: 'border-color 0.15s, transform 0.15s' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = ''; }}
+        >
           <div style={{ fontSize: '0.68rem', color: 'var(--text3)', whiteSpace: 'nowrap' }}>
             {isHe ? 'רמה' : 'Lv.'} {level}
           </div>
@@ -94,7 +110,7 @@ export default function Home({ onNavigate }) {
             }} />
           </div>
           <div style={{ fontSize: '0.68rem', color: 'var(--text3)', whiteSpace: 'nowrap' }}>{xpInLevel}/{XP_PER_LEVEL}</div>
-        </div>
+        </button>
       </div>
 
       {/* ── Continue learning CTA ── */}
