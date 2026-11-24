@@ -6,7 +6,7 @@ import { useLang } from '../context/LanguageContext';
 import { useProgress } from '../hooks/useProgress';
 import {
   LearnIcon, OrgansIcon, PointsIcon, ElementsIcon, StudyIcon, CasesIcon,
-  FireIcon, BoltIcon, LogoLeafIcon,
+  QuizIcon, FireIcon, BoltIcon, LogoLeafIcon,
 } from '../components/NavIcons';
 
 const elementColors = { wood: 'var(--wood)', fire: 'var(--fire)', earth: 'var(--earth)', metal: 'var(--metal)', water: 'var(--water)' };
@@ -18,12 +18,12 @@ const pill = {
 };
 
 const quickLinks = [
-  { id: 'learn',    Icon: LearnIcon,    title: 'מסלול לימוד',     titleEn: 'Learning Path',    desc: 'לימוד גיימיפיקציה — Duolingo-style', descEn: 'Gamified lessons, XP & badges', color: '#7c83f5' },
-  { id: 'organs',   Icon: OrgansIcon,   title: 'תורת האיברים',    titleEn: 'Organs',           desc: `${organs.length} איברים עם פונקציות מלאות`, descEn: `${organs.length} organs`, color: '#7c83f5' },
-  { id: 'points',   Icon: PointsIcon,   title: 'נקודות טצובו',    titleEn: 'Acupoints',        desc: `${points.length} נקודות עם לוקציה ותוויות`, descEn: `${points.length} points`, color: '#66bb6a' },
-  { id: 'elements', Icon: ElementsIcon, title: 'חמשת היסודות',   titleEn: '5 Elements',       desc: 'עץ, אש, אדמה, מתכת, מים', descEn: 'Wood, Fire, Earth, Metal, Water', color: '#ffa726' },
-  { id: 'study',    Icon: StudyIcon,    title: 'כרטיסיות לימוד', titleEn: 'Flashcards',       desc: `${flashcards.length} כרטיסיות לחזרה`, descEn: `${flashcards.length} cards`, color: '#ce93d8' },
-  { id: 'cases',    Icon: CasesIcon,    title: 'מקרי מטופלים',   titleEn: 'Case Studies',     desc: `${cases.length} מקרים קליניים לתרגול`, descEn: `${cases.length} cases`, color: '#ef5350' },
+  { id: 'organs',   Icon: OrgansIcon,   title: 'תורת האיברים',    titleEn: 'Organs',        desc: `${organs.length} איברים עם פונקציות מלאות`, descEn: `${organs.length} organs with full functions`, color: '#7c83f5' },
+  { id: 'points',   Icon: PointsIcon,   title: 'נקודות טצובו',    titleEn: 'Acupoints',     desc: `${points.length} נקודות עם לוקציה ותוויות`, descEn: `${points.length} points with location & tags`, color: '#66bb6a' },
+  { id: 'elements', Icon: ElementsIcon, title: 'חמשת היסודות',   titleEn: '5 Elements',    desc: 'עץ, אש, אדמה, מתכת, מים', descEn: 'Wood, Fire, Earth, Metal, Water', color: '#ffa726' },
+  { id: 'study',    Icon: StudyIcon,    title: 'כרטיסיות לימוד', titleEn: 'Flashcards',    desc: `${flashcards.length} כרטיסיות לחזרה`, descEn: `${flashcards.length} cards to review`, color: '#ce93d8' },
+  { id: 'quiz',     Icon: QuizIcon,     title: 'בחנות',           titleEn: 'Quizzes',       desc: 'בחנות ידע אינטראקטיביות', descEn: 'Test your knowledge', color: '#26c6da' },
+  { id: 'cases',    Icon: CasesIcon,    title: 'מקרי מטופלים',   titleEn: 'Case Studies',  desc: `${cases.length} מקרים קליניים לתרגול`, descEn: `${cases.length} clinical cases`, color: '#ef5350' },
 ];
 
 export default function Home({ onNavigate }) {
@@ -63,8 +63,12 @@ export default function Home({ onNavigate }) {
         <div style={pill}>
           <span style={{ color: 'var(--fire)' }}><FireIcon size={22} /></span>
           <div>
-            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--fire)', lineHeight: 1 }}>{streak.count}</div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--text3)' }}>{isHe ? 'רצף ימים' : 'Day streak'}</div>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--fire)', lineHeight: 1 }}>
+              {streak.count > 0 ? streak.count : (isHe ? 'התחל!' : 'Go!')}
+            </div>
+            <div style={{ fontSize: '0.68rem', color: 'var(--text3)' }}>
+              {streak.count > 0 ? (isHe ? 'רצף ימים' : 'Day streak') : (isHe ? 'למד היום' : 'Start today')}
+            </div>
           </div>
         </div>
         {/* Total XP */}
@@ -125,7 +129,7 @@ export default function Home({ onNavigate }) {
       </button>
 
       {/* Quick links */}
-      <h2 style={{ marginBottom: 14 }}>{isHe ? 'מקטעים' : 'Sections'}</h2>
+      <h2 style={{ marginBottom: 14 }}>{isHe ? 'חומר לימוד' : 'Study Sections'}</h2>
       <div className="grid-3" style={{ marginBottom: 32 }}>
         {quickLinks.map((link) => (
           <button
@@ -152,7 +156,7 @@ export default function Home({ onNavigate }) {
       </div>
 
       {/* 5 Elements summary */}
-      <h2 style={{ marginBottom: 14 }}>חמשת היסודות — סיכום מהיר</h2>
+      <h2 style={{ marginBottom: 14 }}>{isHe ? 'חמשת היסודות — סיכום מהיר' : '5 Elements — Quick Reference'}</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10, marginBottom: 32 }}>
         {elements.map((el) => (
           <div key={el.id} style={{ background: 'var(--bg2)', border: `1px solid ${elementColors[el.id]}30`, borderRadius: 12, padding: '14px 12px', textAlign: 'center' }}>
@@ -174,7 +178,10 @@ export default function Home({ onNavigate }) {
       <div style={{ background: 'rgba(124,131,245,0.08)', border: '1px solid rgba(124,131,245,0.2)', borderRadius: 12, padding: '16px 20px' }}>
         <div style={{ fontWeight: 600, marginBottom: 6, color: 'var(--accent)' }}>{isHe ? 'טיפ לימוד' : 'Study Tip'}</div>
         <p style={{ fontSize: '0.88rem', color: 'var(--text2)', lineHeight: 1.7 }}>
-          עבור על <strong>תורת האיברים</strong> לפי יסוד (עץ → אש → אדמה → מתכת → מים). לאחר מכן תרגל עם <strong>כרטיסיות הלימוד</strong> ובחן את עצמך במקרים. נקודות Back-Shu חשובות לאבחון: UB13=ריאות, UB15=לב, UB18=כבד, UB20=טחול, UB23=כליות.
+          {isHe
+            ? <>עבור על <strong>תורת האיברים</strong> לפי יסוד (עץ → אש → אדמה → מתכת → מים). לאחר מכן תרגל עם <strong>כרטיסיות הלימוד</strong> ובחן את עצמך במקרים. נקודות Back-Shu חשובות לאבחון: UB13=ריאות, UB15=לב, UB18=כבד, UB20=טחול, UB23=כליות.</>
+            : <>Study <strong>Organs</strong> by element (Wood → Fire → Earth → Metal → Water). Then reinforce with <strong>Flashcards</strong> and test yourself with Case Studies. Key Back-Shu points: UB13=Lungs, UB15=Heart, UB18=Liver, UB20=Spleen, UB23=Kidneys.</>
+          }
         </p>
       </div>
     </div>

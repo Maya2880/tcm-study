@@ -110,12 +110,28 @@ input, select, textarea {
   padding: 12px 8px 4px;
 }
 
+.nav-group {
+  margin-bottom: 4px;
+}
+
+.nav-group:first-child {
+  margin-bottom: 0;
+}
+
 .nav-label {
   font-size: 0.65rem;
   color: var(--text3);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0 8px 6px;
+  padding: 10px 8px 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-group:first-child .nav-label {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .nav-item {

@@ -22,23 +22,50 @@ import {
   ResourcesIcon,
 } from './components/NavIcons';
 
-const navItems = [
-  { id: 'home',       Icon: HomeIcon,       he: 'בית',              en: 'Home' },
-  { id: 'learn',      Icon: LearnIcon,       he: 'מסלול לימוד',      en: 'Learn' },
-  { id: 'organs',     Icon: OrgansIcon,     he: 'איברים',           en: 'Organs' },
-  { id: 'points',     Icon: PointsIcon,     he: 'נקודות',           en: 'Points' },
-  { id: 'elements',   Icon: ElementsIcon,   he: '5 יסודות',         en: 'Elements' },
-  { id: 'principles', Icon: PrinciplesIcon, he: '8 עקרונות',        en: '8 Principles' },
-  { id: 'intake',     Icon: IntakeIcon,     he: 'טופס מטופל',       en: 'Intake' },
-  { id: 'protocols',  Icon: ProtocolsIcon,  he: 'פרוטוקולים',       en: 'Protocols' },
-  { id: 'study',      Icon: StudyIcon,      he: 'כרטיסיות',         en: 'Flashcards' },
-  { id: 'quiz',       Icon: QuizIcon,       he: 'בחנות',            en: 'Quizzes' },
-  { id: 'cardplays',  Icon: CardPlaysIcon,  he: 'משחקי קלפים',      en: 'Card Plays' },
-  { id: 'cases',      Icon: CasesIcon,      he: 'מקרי מטופלים',     en: 'Cases' },
-  { id: 'chat',       Icon: ChatIcon,       he: 'הצוות שלי',        en: 'My Team' },
-  { id: 'progress',   Icon: ProgressIcon,   he: 'התקדמות',          en: 'Progress' },
-  { id: 'resources',  Icon: ResourcesIcon,  he: 'מקורות',           en: 'Resources' },
+const navSections = [
+  {
+    labelHe: null, labelEn: null,
+    items: [
+      { id: 'home', Icon: HomeIcon, he: 'בית', en: 'Home' },
+    ],
+  },
+  {
+    labelHe: 'לימוד', labelEn: 'Study',
+    items: [
+      { id: 'learn',     Icon: LearnIcon,    he: 'מסלול לימוד',  en: 'Learn' },
+      { id: 'study',     Icon: StudyIcon,    he: 'כרטיסיות',     en: 'Flashcards' },
+      { id: 'quiz',      Icon: QuizIcon,     he: 'בחנות',         en: 'Quizzes' },
+      { id: 'cardplays', Icon: CardPlaysIcon, he: 'משחקי קלפים', en: 'Card Plays' },
+    ],
+  },
+  {
+    labelHe: 'חומר עיון', labelEn: 'Reference',
+    items: [
+      { id: 'organs',     Icon: OrgansIcon,     he: 'איברים',      en: 'Organs' },
+      { id: 'points',     Icon: PointsIcon,     he: 'נקודות',      en: 'Points' },
+      { id: 'elements',   Icon: ElementsIcon,   he: '5 יסודות',    en: 'Elements' },
+      { id: 'principles', Icon: PrinciplesIcon, he: '8 עקרונות',   en: 'Principles' },
+      { id: 'protocols',  Icon: ProtocolsIcon,  he: 'פרוטוקולים',  en: 'Protocols' },
+    ],
+  },
+  {
+    labelHe: 'קליני', labelEn: 'Clinical',
+    items: [
+      { id: 'intake', Icon: IntakeIcon, he: 'טופס מטופל',    en: 'Intake' },
+      { id: 'cases',  Icon: CasesIcon,  he: 'מקרי מטופלים', en: 'Cases' },
+    ],
+  },
+  {
+    labelHe: 'כלים', labelEn: 'Tools',
+    items: [
+      { id: 'chat',      Icon: ChatIcon,      he: 'מדריך AI',    en: 'AI Tutor' },
+      { id: 'progress',  Icon: ProgressIcon,  he: 'התקדמות',     en: 'Progress' },
+      { id: 'resources', Icon: ResourcesIcon, he: 'מקורות',      en: 'Resources' },
+    ],
+  },
 ];
+
+const navItems = navSections.flatMap((s) => s.items);
 
 export default function App() {
   const [page, setPage] = useState('home');
@@ -84,17 +111,25 @@ export default function App() {
         </div>
 
         <nav className="nav-section">
-          <div className="nav-label">{lang === 'he' ? 'ניווט' : 'Navigation'}</div>
-          {navItems.map(({ id, Icon, he, en }) => (
-            <button
-              key={id}
-              className={`nav-item ${page === id ? 'active' : ''}`}
-              onClick={() => setPage(id)}
-            >
-              <span className="sidebar-pill" />
-              <span className="nav-icon"><Icon /></span>
-              <span className="nav-text">{lang === 'he' ? he : en}</span>
-            </button>
+          {navSections.map((section, si) => (
+            <div key={si} className="nav-group">
+              {section.labelHe && (
+                <div className="nav-label">
+                  {lang === 'he' ? section.labelHe : section.labelEn}
+                </div>
+              )}
+              {section.items.map(({ id, Icon, he, en }) => (
+                <button
+                  key={id}
+                  className={`nav-item ${page === id ? 'active' : ''}`}
+                  onClick={() => setPage(id)}
+                >
+                  <span className="sidebar-pill" />
+                  <span className="nav-icon"><Icon /></span>
+                  <span className="nav-text">{lang === 'he' ? he : en}</span>
+                </button>
+              ))}
+            </div>
           ))}
         </nav>
 
