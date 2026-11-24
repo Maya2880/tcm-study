@@ -1,4 +1,4 @@
-export {
+import {
   Home          as HomeIcon,
   BookOpen      as LearnIcon,
   HeartPulse    as OrgansIcon,
@@ -15,6 +15,12 @@ export {
   BarChart2     as ProgressIcon,
   Globe         as ResourcesIcon,
 } from 'lucide-react'
+
+export {
+  HomeIcon, LearnIcon, OrgansIcon, PointsIcon, ElementsIcon, PrinciplesIcon,
+  IntakeIcon, ProtocolsIcon, StudyIcon, QuizIcon, CardPlaysIcon, CasesIcon,
+  ChatIcon, ProgressIcon, ResourcesIcon,
+}
 
 // ── Inline status / lesson icons ─────────────────────────────────────────────
 

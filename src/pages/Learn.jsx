@@ -435,8 +435,8 @@ export default function Learn() {
                         <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
                           {full && (
                             <div style={{ display: 'flex', gap: 4 }}>
-                              {full.steps.map((s) => (
-                                <span key={s} style={{ color: 'var(--text3)', opacity: 0.6 }}>
+                              {full.steps.map((s, si) => (
+                                <span key={si} style={{ color: 'var(--text3)', opacity: 0.6 }}>
                                   {s === 'read'  && <ReadStepIcon  size={12} />}
                                   {s === 'tap'   && <TapStepIcon   size={12} />}
                                   {s === 'match' && <MatchStepIcon size={12} />}
